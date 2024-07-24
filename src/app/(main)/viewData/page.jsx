@@ -6,20 +6,20 @@ import React, { useEffect, useState } from 'react';
 const Page = () => {
   const [items, setItems] = useState([]);
 
-  const fetchImageData = () => {
-    fetch('http://localhost:9000/getfile')
-      .then((response) => {
-        if (response.status === 200) {
-          response.json().then((result) => {
-            console.log(result);
-            // Set the image data in state or do something with it
-          });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  // const fetchImageData = () => {
+  //   fetch('http://localhost:9000')
+  //     .then((response) => {
+  //       if (response.status === 200) {
+  //         response.json().then((result) => {
+  //           console.log(result);
+  //           // Set the image data in state or do something with it
+  //         });
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
   const fetchUserData = () => {
     fetch('http://localhost:9000/getall')
       .then((response) => {
@@ -37,12 +37,9 @@ const Page = () => {
 
   useEffect(() => {
     fetchUserData();
-    fetchImageData();
+    // fetchImageData();
   }, []);
 
-  // const del = (id) => {
-  //   // Implement the delete functionality here
-  // };
 
   return (
     <Grid py={100} px={'md'}>
@@ -51,7 +48,7 @@ const Page = () => {
           <Grid.Col key={index} span={{ base: 12, xs: 4 }}>
             <Card withBorder radius="md">
               <Card.Section>
-                <Image src={`http://localhost:9000/getfile/${item.image}`} alt={item.name} height={180} />
+                <Image src={`http://localhost:9000/${item.image}`} alt={item.name} height={180} />
               </Card.Section>
 
               <Card.Section mt="md" px={'md'}>

@@ -9,7 +9,7 @@ import {
   Stack,
 } from "@mantine/core";
 import axios from "axios";
-// import { useRouter } from "next/navigation";
+import { useSnackbar } from "notistack"; // Import useSnackbar from notistack
 import classes from "./schoolForm.module.css";
 
 const SchoolForm = () => {
@@ -20,11 +20,10 @@ const SchoolForm = () => {
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [file, setFile] = useState(null);
-  const [message, setMessage] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+
+  const { enqueueSnackbar } = useSnackbar(); // Destructure enqueueSnackbar from useSnackbar
 
   const handleSubmit = async (e) => {
-    // const router = useRouter();
     e.preventDefault();
 
     const formData = new FormData();
@@ -46,11 +45,22 @@ const SchoolForm = () => {
           },
         }
       );
-      setMessage(response.data.message);
-      setImageUrl(response.data.filePath);
-      // router.push('./(main)/viewData')
-    } catch (error) {
-      setMessage("Upload failed");
+      enqueueSnackbar("Data saved in database successfully", { // Display success message using enqueueSnackbar
+        variant: "success",
+      });
+      // Clear the input fields after successful submission
+    setName("");
+    setEmail("");
+    setContact("");
+    setAddress("");
+    setCity("");
+    setState("");
+    setFile(null);
+  } catch (error)
+    {
+      enqueueSnackbar("Upload failed", { // Display error message using enqueueSnackbar
+        variant: "error",
+      });
     }
   };
 
@@ -108,16 +118,16 @@ const SchoolForm = () => {
               required
             />
             <Stack>
-            <input
-              type="file"
-              onChange={(e) => setFile(e.target.files[0])}
-              required
-              className={classes.file}
-            />
+              <input
+                type="file"
+                onChange={(e) => setFile(e.target.files[0])}
+                required
+                className={classes.file}
+              />
             </Stack>
           </Stack>
           <Group justify="space-between" mt="md">
-            <Button type="submit" radius="xl" style={{letterSpacing:'1px'}}>
+            <Button type="submit" radius="xl" style={{ letterSpacing: '1px' }}>
               Submit
             </Button>
           </Group>
