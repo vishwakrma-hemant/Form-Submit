@@ -108,7 +108,7 @@ const Navbar = () => {
         onClose={closeDrawer}
         size="100%"
         padding="md"
-        title="DOM Visualizer"
+        title="School Data Management"
         hiddenFrom="sm"
         zIndex={1000000}
       >
@@ -118,7 +118,7 @@ const Navbar = () => {
           <a href="/" className={classes.link}>
             Enter School Details
           </a>
-          <a href="contact" className={classes.link}>
+          <a href="/viewData" className={classes.link}>
             See Enter Details
           </a>
           <Divider my="sm" />
